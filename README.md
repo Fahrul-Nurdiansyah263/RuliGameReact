@@ -1,75 +1,128 @@
-# React + TypeScript + Vite
+# 🎮 RuliGame
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **Game Discovery Portal** built to explore modern frontend data management — featuring real-time search, smart filtering, and a persistent favorites system, wrapped in a bold **Neo-Brutalism** UI.
 
-Currently, two official plugins are available:
+> Built as a learning playground for TanStack Query v5 and Zustand in a real-world use case.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Live Demo:** [ruli-game-react.vercel.app](https://ruli-game-react.vercel.app)
 
-## React Compiler
+---
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## ✨ Features
 
-Note: This will impact Vite dev & build performances.
+- 🔍 **Real-time Search** — Search games by title or description instantly
+- 🎛️ **Multi-filter System** — Filter by platform (PC / Browser), genre, and sort order
+- 📄 **Game Detail Page** — Full info with interactive screenshot gallery, system requirements, and metadata
+- ❤️ **Favorites System** — Save games locally with persistent storage (survives page refresh)
+- ⚡ **Smart Caching** — TanStack Query handles caching so the app never refetches unnecessarily
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Technology | Purpose |
+|---|---|
+| **React 19** + TypeScript | Core framework |
+| **Tailwind CSS v4** | Styling (via `@tailwindcss/vite`) |
+| **TanStack Query v5** | Async state management & caching |
+| **Zustand** | Global state (favorites) with persistence |
+| **Framer Motion** | Micro-animations & transitions |
+| **Axios** | HTTP client |
+| **React Router v7** | Client-side routing |
+| **Lucide React** | Icons |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🗂️ Project Structure
+
+```
+src/
+├── api/          # Axios API calls (FreeToGame API)
+├── components/   # Reusable UI components
+│   ├── ui/       # Base components (Button, Badge, Card, Skeleton)
+│   ├── GameCard.tsx
+│   ├── GameGrid.tsx
+│   ├── Navbar.tsx
+│   ├── Searchbar.tsx
+│   └── FilterBar.tsx
+├── hooks/        # Custom hooks (useGames, useFavorites)
+├── pages/        # Route pages (Home, Detail, Favorites)
+├── store/        # Zustand store (favorites with persist middleware)
+├── types/        # TypeScript type definitions
+└── utils/        # Helper functions (filter, format)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Getting Started
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+- Node.js `>= 18`
+- npm or pnpm
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/ruli-game.git
+cd ruli-game
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
 ```
+
+The app will be available at `http://localhost:5173`
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## 📡 API
+
+This project uses the **[FreeToGame API](https://www.freetogame.com/api-doc)** — a free, public API that provides data on free-to-play games across PC and browser platforms.
+
+```
+Base URL: https://www.freetogame.com/api
+
+GET /games              → List all games (supports platform, category, sort-by params)
+GET /game?id={id}       → Get game detail by ID
+```
+
+> **Note:** The FreeToGame API does not require an API key.
+
+---
+
+## 💡 Key Learnings
+
+### TanStack Query v5
+- How query keys work and why they matter for cache invalidation
+- Handling `isLoading`, `isError`, and `data` states cleanly without manual `useEffect`
+- Using `staleTime` and `gcTime` to control when data is refetched
+
+### Zustand
+- Creating a global store with minimal boilerplate
+- Using the `persist` middleware to sync state with `localStorage` automatically
+- Combining Zustand (for global/persistent state) with TanStack Query (for server state) in the same app
+
+---
+
+## 🎨 Design
+
+UI is built with a **Neo-Brutalism** design language:
+- Bold `3px` black borders
+- Hard flat offset shadows (`box-shadow: 4px 4px 0px #000`)
+- High-contrast color palette — cream background, black borders, violet & yellow accents
+- Kinetic hover effects (elements shift on hover, shadow grows)
+
+---
+
+## 📄 License
+
+MIT License — feel free to use this project as a reference or learning resource.
